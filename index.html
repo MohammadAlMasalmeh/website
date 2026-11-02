@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slug AI</title>
+  <meta name="description" content="For the inference jobs that can wait, save 3-4x using slug over realtime inference providers">
+  <style>
+    :root {
+      --paper: #f5f1e3;
+      --ink: #211e16;
+      --slug: #7a6c00;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-align: center;
+    }
+
+    .track {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .slug {
+      display: grid;
+      width: max-content;
+      color: var(--slug);
+      font-size: min(9.5px, 2.2vw);
+      /* The negative delay puts the slug on screen at load instead of off to the left. */
+      animation: crawl 60s linear -20s infinite;
+    }
+
+    .frame {
+      grid-area: 1 / 1;
+      margin: 0;
+      font: inherit;
+      line-height: 1.1;
+      text-align: left;
+      animation: swap 1.8s steps(1) infinite;
+    }
+
+    .frame:nth-child(2) { animation-delay: -1.35s; }
+    .frame:nth-child(3) { animation-delay: -0.9s; }
+    .frame:nth-child(4) { animation-delay: -0.45s; }
+
+    @keyframes crawl {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(100vw); }
+    }
+
+    @keyframes swap {
+      25%, 100% { visibility: hidden; }
+    }
+
+    h1 {
+      margin: 32px 16px 16px;
+      font-size: clamp(20px, 4vw, 32px);
+      font-weight: 700;
+    }
+
+    .pitch {
+      max-width: 56ch;
+      margin: 0 16px 24px;
+      line-height: 1.5;
+    }
+
+    .contact {
+      padding: 12px 24px;
+      border: 2px solid var(--ink);
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .contact:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .contact:focus-visible {
+      outline: 2px solid var(--slug);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slug {
+        /* Centers the body rather than the art, which includes the trail behind it. */
+        margin-left: 50%;
+        transform: translateX(-59%);
+        animation: none;
+      }
+
+      .frame {
+        animation: none;
+      }
+
+      .frame + .frame {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="track">
+    <div class="slug" role="img" aria-label="ASCII art of a slug crawling across the screen">
+<pre class="frame">                                                                             @
+                                                                            /       @
+                                                                          /       /
+                                                           #*##@         /      /
+                                                    ********+*####%#%  /       /
+                                         #*%+**#@%**----:--::-==+==-*#@@%    /
+                                    *+*#+-.---=:++*=-------:--=======-+#+@@%
+                                #==::=:=:-===.-:=*++:--:@@:--===++==***++=+=*@
+                             *#::::-:-:----.--+-:..*=--##%:-===+####%#=:=-*++++@
+                         *#:-:---:.    .:.=-+---:=-::.#*#=*#%%*#*#+++-+=*+=+=*+*@----o
+                      #=+--.   ..::=-:-:++*=-++*==--+-+-==+*++-++++-+=*=++=*+*++%------o
+                   -: --=-+#*#+**##+*+#*##*%#%##*#%*#+*##%*%#%%##*%#%**#%@####@##
+     _ -,,-- ___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~</pre>
+<pre class="frame">                                                                              @
+                                                                             /    @
+                                                                           /    /
+                                                                          /    /
+                                                  #***********####%##   /    /
+                                            +**#@%---------::-==+==--*@@#@  /
+                                     +*%+*=---=:+=*=----=--:--===-==-++*+*@%
+                                #==::=:=:-===.::-+++:--@@@--=====+==***=+=+=#@
+                            #*=::::=:-:==--.-:-:...+==+@@@--===+=###%==:=-*++++@
+                         *=:-:--::......:.=:=:::.-:-::#*%+*#%@*#*#==+-+=*++++#*#@-----o
+                      #=+--.  .:.--==:-:+=+=-++*==--+-+=+=+*++-++++-+=*=++=***++%-----o
+                   -- --=-+#*#+#*##+*+#*##*%#%*#*#%*#+*##%*%#%%##*%#%**#%@####@##
+     _ -,,-- _____-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-</pre>
+<pre class="frame">                                                                             @
+                                                                            /     @
+                                                                          /      /
+                                                       **####            /     /
+                                                  #**+*******###%#%    /      /
+                                             **#@%+---------:-==+==***@@#@  /
+                                   +++*%**=**-=:++*=----=----=+=====-:+*=*@#@
+                               #*=.::=-=:====.::-+++:::@@@--===+++==***=+=+=*@@
+                            #*=::::=:-:==--:-:=:..    -%@@=====++#####=:=-*++++@
+                          #:-:--:. ..:---:=-=:...:.:..=*%+*#%@##*##=+-+-*+=++#*#@----o
+                       =+--.   :.--==--:++*=-+=*==--+-+=+=+*++-++++-+=*==+=***++%------o
+                   -- --=-+#*#+#*##+*+#*##*%#%*#*#%*#+*##%*%#%%##*%#%**#%@####@##
+     _ -,,-- __~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-__</pre>
+<pre class="frame">                                                                            @
+                                                                          /         @
+                                                                         /        /
+                                                        ***#*#%         /        /
+                                                    *****----=##%#@    /       /
+                                           @***#@%++----:--::-==+++***@@#    /
+                                   +++*%+-:=-==:++*=-------:-=++=====-+*+@@#
+                                #=.::=:=:====.-:-+++:::%%@:-===++++=***#+-+-*@@
+                             *#::::-:-:==-=:=-+-..:     #%--===++###%#=:=-*++++@
+                          #:-:--::   .::-:+=+---.-....**#+*#%@##*#+++-+-*+===*+*@---o
+                      #=+--.   ..::==--:++*=-++*==--+-+-+=+*++-++++-+=*==+=*+*++%-------o
+                   -: --=-++*#+**##+*+#*##*%#%*#*#%*#+*##%*%#%%##*%#%**#%@####@##
+     _ -,,-- __~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-</pre>
+    </div>
+  </div>
+  <h1>Slug AI</h1>
+  <p class="pitch">For the inference jobs that can wait, save 3-4x using slug over realtime inference providers</p>
+  <a class="contact" href="mailto:shrey@utexas.edu">Email us</a>
+</body>
+</html>
