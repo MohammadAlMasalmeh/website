@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Slug AI</title>
   <meta name="description"
-    content="For the inference jobs that can wait, save 75% using Slug over realtime inference providers">
+    content="Save 3 to 4x using Slug over realtime inference providers for jobs that can wait">
   <style>
     :root {
       --paper: #f5f1e3;
@@ -20,16 +20,14 @@
       min-height: 100svh;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
       background: var(--paper);
       color: var(--ink);
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      text-align: center;
     }
 
     .track {
       width: 100%;
+      margin-block: auto;
       overflow: hidden;
     }
 
@@ -47,7 +45,6 @@
       margin: 0;
       font: inherit;
       line-height: 1.1;
-      text-align: left;
       animation: swap 1.8s steps(1) infinite;
     }
 
@@ -81,21 +78,27 @@
       }
     }
 
+    .intro {
+      padding: 24px;
+      font-size: 15.6px;
+    }
+
     h1 {
-      margin: 32px 16px 16px;
-      font-size: clamp(20px, 4vw, 32px);
+      margin: 0 0 8px;
+      font-size: 19.2px;
       font-weight: 700;
     }
 
     .pitch {
-      max-width: 56ch;
-      margin: 0 16px 24px;
+      max-width: 42ch;
+      margin: 0 0 12px;
       line-height: 1.5;
     }
 
     .contact {
-      padding: 12px 24px;
-      border: 2px solid var(--ink);
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid var(--ink);
       color: var(--ink);
       text-decoration: none;
     }
@@ -186,9 +189,11 @@
      _ -,,-- __~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-</pre>
     </div>
   </div>
-  <h1>Slug AI</h1>
-  <p class="pitch">For the inference jobs that can wait, save 3-4x using slug over realtime inference providers</p>
-  <a class="contact" href="mailto:shrey@utexas.edu">Email us</a>
+  <div class="intro">
+    <h1>Slug AI</h1>
+    <p class="pitch">Save 3 to 4x using Slug over realtime inference providers for jobs that can wait</p>
+    <a class="contact" href="mailto:shrey@utexas.edu">Email us</a>
+  </div>
 </body>
 
 </html>
