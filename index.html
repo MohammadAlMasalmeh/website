@@ -26,6 +26,7 @@
     }
 
     .track {
+      position: relative;
       width: 100%;
       margin-block: auto;
       overflow: hidden;
@@ -36,8 +37,14 @@
       width: max-content;
       color: var(--slug);
       font-size: min(9.5px, 2.2vw);
-      /* The negative delay puts the slug on screen at load instead of off to the left. */
-      animation: crawl 60s linear -20s infinite;
+      animation: crawl 43s linear infinite;
+    }
+
+    /* The copy added below sits one screen behind, so the slug wraps around the edge. */
+    .slug+.slug {
+      position: absolute;
+      top: 0;
+      left: -100vw;
     }
 
     .frame {
@@ -62,7 +69,7 @@
 
     @keyframes crawl {
       from {
-        transform: translateX(-100%);
+        transform: translateX(0);
       }
 
       to {
@@ -119,6 +126,10 @@
         margin-left: 50%;
         transform: translateX(-59%);
         animation: none;
+      }
+
+      .slug+.slug {
+        display: none;
       }
 
       .frame {
@@ -194,6 +205,12 @@
     <p class="pitch">Save 3 to 4x using Slug over realtime inference providers for jobs that can wait</p>
     <a class="contact" href="mailto:shrey@utexas.edu">Email us</a>
   </div>
+  <script>
+    const slug = document.querySelector('.slug');
+    const copy = slug.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    slug.after(copy);
+  </script>
 </body>
 
 </html>
