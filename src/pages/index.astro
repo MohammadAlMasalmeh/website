@@ -1,5 +1,8 @@
 ---
 import '../styles/fonts.css';
+import '../styles/theme.css';
+import SlugMark from '../components/SlugMark.astro';
+import { site } from '../config';
 ---
 
 <!doctype html>
@@ -11,13 +14,8 @@ import '../styles/fonts.css';
   <title>Slug AI</title>
   <meta name="description"
     content="Save 3 to 4x using Slug over realtime inference providers for jobs that can wait">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <style is:inline>
-    :root {
-      --paper: #f5f1e3;
-      --ink: #211e16;
-      --slug: #7a6c00;
-    }
-
     html {
       /* Stops phones enlarging the slug's small text. */
       -webkit-text-size-adjust: 100%;
@@ -30,9 +28,15 @@ import '../styles/fonts.css';
       min-height: 100svh;
       display: flex;
       flex-direction: column;
-      background: var(--paper);
+      background: var(--bg);
       color: var(--ink);
       font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background: var(--slime);
+      color: var(--on-slime);
     }
 
     .track {
@@ -45,7 +49,7 @@ import '../styles/fonts.css';
     .slug {
       display: grid;
       width: max-content;
-      color: var(--slug);
+      color: var(--ink);
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       /* Narrower than the screen, so the wrapped copy never runs into the slug. */
       font-size: min(9.5px, 1.55vw);
@@ -98,45 +102,63 @@ import '../styles/fonts.css';
     }
 
     .intro {
-      padding: 24px;
+      padding: 24px 24px 32px;
       font-size: 17px;
     }
 
+    .top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 24px;
+      padding: 20px 32px;
+    }
+
     h1 {
-      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
       font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 700;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    h1 svg {
+      width: 30px;
+      color: var(--ink);
     }
 
     .pitch {
-      max-width: 42ch;
+      max-width: 40ch;
       margin: 0 0 12px;
+      color: var(--ink-2);
+      font-size: 17px;
       line-height: 1.5;
     }
 
     .top-nav {
       display: flex;
-      justify-content: flex-end;
       flex-wrap: wrap;
-      gap: 8px 20px;
-      padding: 24px;
-      font-size: 16px;
+      gap: 8px 24px;
+      font-size: 15px;
     }
 
     .top-nav a {
-      color: var(--ink);
+      color: var(--ink-2);
       text-decoration: none;
     }
 
     .top-nav a:hover {
-      text-decoration: underline;
-      text-underline-offset: 3px;
+      color: var(--ink);
     }
 
-    .top-nav a:focus-visible {
+    a:focus-visible {
       outline: 2px solid var(--slug);
       outline-offset: 3px;
+      border-radius: 4px;
     }
 
     @media (max-width: 600px) {
@@ -144,8 +166,12 @@ import '../styles/fonts.css';
         animation-duration: 30s;
       }
 
-      .top-nav {
+      .top {
         padding: 16px;
+      }
+
+      .intro {
+        padding: 16px 16px 24px;
       }
     }
 
@@ -173,11 +199,14 @@ import '../styles/fonts.css';
 </head>
 
 <body>
-  <nav class="top-nav" aria-label="Main">
-    <a href="/api/">API</a>
-    <a href="/blog/">Blog</a>
-    <a href="mailto:shrey@utexas.edu">Email us</a>
-  </nav>
+  <header class="top">
+    <h1><SlugMark />Slug AI</h1>
+    <nav class="top-nav" aria-label="Main">
+      <a href="/api/">API</a>
+      <a href="/blog/">Blog</a>
+      <a href={`mailto:${site.email}`}>Email us</a>
+    </nav>
+  </header>
   <div class="track">
     <div class="slug" role="img" aria-label="ASCII art of a slug crawling across the screen">
       <pre class="frame">                                                                             @
@@ -235,7 +264,6 @@ import '../styles/fonts.css';
     </div>
   </div>
   <div class="intro">
-    <h1>Slug AI</h1>
     <p class="pitch">Save 3 to 4x using Slug over realtime inference providers for jobs that can wait</p>
   </div>
   <script is:inline>

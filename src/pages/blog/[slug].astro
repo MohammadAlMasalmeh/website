@@ -14,12 +14,35 @@ const { Content } = await render(post);
 
 <Layout title={`${post.data.title} | Slug AI`} description={post.data.description}>
   <article>
-    <h1>{post.data.title}</h1>
-    <time class="post-date" datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-    {post.data.draft && <span class="tag"> draft</span>}
+    <header class="post-header">
+      <p class="post-meta">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        {post.data.draft && <span class="tag"> draft</span>}
+      </p>
+      <h1>{post.data.title}</h1>
+    </header>
     <div class="prose">
       <Content />
     </div>
   </article>
-  <p><a href="/blog/">&larr; All posts</a></p>
+  <p class="post-end"><a href="/blog/">&larr; All posts</a></p>
+  <dialog class="zoom" aria-label="Enlarged image">
+    <img alt="" />
+  </dialog>
+
+  <script>
+    // Opens a chart full size when you click it.
+    const zoom = document.querySelector<HTMLDialogElement>('.zoom')!;
+    const zoomed = zoom.querySelector('img')!;
+    document.querySelectorAll<HTMLAnchorElement>('.prose .zoomable').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const img = link.querySelector('img')!;
+        zoomed.src = img.src;
+        zoomed.alt = img.alt;
+        zoom.showModal();
+      });
+    });
+    zoom.addEventListener('click', () => zoom.close());
+  </script>
 </Layout>
