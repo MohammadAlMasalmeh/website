@@ -6,4 +6,5 @@ export async function getPosts() {
   return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 
-export const formatDate = (date: Date) => date.toISOString().slice(0, 10);
+export const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });

@@ -1,0 +1,16 @@
+/* Change the site's colors here. */
+:root {
+  color-scheme: dark;
+  --bg: #0b0d09;
+  --surface: #13160f;
+  --surface-2: #1a1e14;
+  --ink: #e7ebdb;
+  --ink-2: #969d88;
+  --rule: #23271d;
+  /* Accent for text and lines. */
+  --slug: #b9e65c;
+  /* Bright slime for selections, tags and buttons. Text on it uses --on-slime. */
+  --slime: #b9e65c;
+  --slime-soft: rgb(185 230 92 / 0.15);
+  --on-slime: #0b0d09;
+}

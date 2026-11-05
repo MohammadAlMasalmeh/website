@@ -14,13 +14,13 @@ const posts = await getPosts();
       <ul class="post-list">
         {posts.map((post) => (
           <li>
-            <time class="post-date" datetime={post.data.date.toISOString()}>
+            <time class="post-meta" datetime={post.data.date.toISOString()}>
               {formatDate(post.data.date)}
             </time>
             {post.data.draft && <span class="tag"> draft</span>}
             <br />
             <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-            <p class="muted">{post.data.description}</p>
+            <p>{post.data.description}</p>
           </li>
         ))}
       </ul>
