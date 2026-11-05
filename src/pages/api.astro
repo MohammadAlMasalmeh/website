@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import KeyForm from '../components/KeyForm';
+import { site } from '../config';
+---
+
+<Layout
+  title="Slug AI API"
+  description="Batch inference for jobs that can wait. Send a batch of prompts and collect the results a few hours later."
+>
+  <h1>Slug AI API</h1>
+  <h2 id="key">Get a key</h2>
+  <p>We're issuing keys by hand during early access. Tell us a little about what you're running.</p>
+  <KeyForm client:load email={site.email} />
+</Layout>

@@ -1,3 +1,7 @@
+---
+import '../styles/fonts.css';
+---
+
 <!doctype html>
 <html lang="en">
 
@@ -7,7 +11,7 @@
   <title>Slug AI</title>
   <meta name="description"
     content="Save 3 to 4x using Slug over realtime inference providers for jobs that can wait">
-  <style>
+  <style is:inline>
     :root {
       --paper: #f5f1e3;
       --ink: #211e16;
@@ -28,7 +32,7 @@
       flex-direction: column;
       background: var(--paper);
       color: var(--ink);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-family: var(--font-body);
     }
 
     .track {
@@ -42,6 +46,7 @@
       display: grid;
       width: max-content;
       color: var(--slug);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       /* Narrower than the screen, so the wrapped copy never runs into the slug. */
       font-size: min(9.5px, 1.55vw);
       animation: crawl 43s linear infinite;
@@ -94,12 +99,13 @@
 
     .intro {
       padding: 24px;
-      font-size: 15.6px;
+      font-size: 17px;
     }
 
     h1 {
       margin: 0 0 8px;
-      font-size: 19.2px;
+      font-family: var(--font-display);
+      font-size: 22px;
       font-weight: 700;
     }
 
@@ -109,20 +115,26 @@
       line-height: 1.5;
     }
 
-    .contact {
-      display: inline-block;
-      padding: 8px 14px;
-      border: 1px solid var(--ink);
+    .top-nav {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      padding: 24px;
+      font-size: 16px;
+    }
+
+    .top-nav a {
       color: var(--ink);
       text-decoration: none;
     }
 
-    .contact:hover {
-      background: var(--ink);
-      color: var(--paper);
+    .top-nav a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
-    .contact:focus-visible {
+    .top-nav a:focus-visible {
       outline: 2px solid var(--slug);
       outline-offset: 3px;
     }
@@ -132,8 +144,8 @@
         animation-duration: 30s;
       }
 
-      .contact {
-        padding: 12px 18px;
+      .top-nav {
+        padding: 16px;
       }
     }
 
@@ -161,6 +173,11 @@
 </head>
 
 <body>
+  <nav class="top-nav" aria-label="Main">
+    <a href="/api/">API</a>
+    <a href="/blog/">Blog</a>
+    <a href="mailto:shrey@utexas.edu">Email us</a>
+  </nav>
   <div class="track">
     <div class="slug" role="img" aria-label="ASCII art of a slug crawling across the screen">
       <pre class="frame">                                                                             @
@@ -220,9 +237,8 @@
   <div class="intro">
     <h1>Slug AI</h1>
     <p class="pitch">Save 3 to 4x using Slug over realtime inference providers for jobs that can wait</p>
-    <a class="contact" href="mailto:shrey@utexas.edu">Email us</a>
   </div>
-  <script>
+  <script is:inline>
     const slug = document.querySelector('.slug');
     const copy = slug.cloneNode(true);
     copy.setAttribute('aria-hidden', 'true');

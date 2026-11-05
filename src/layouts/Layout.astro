@@ -1,0 +1,36 @@
+---
+import '../styles/fonts.css';
+import '../styles/site.css';
+import { site } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const section = Astro.url.pathname.split('/')[1];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <div class="page">
+      <nav class="site-nav" aria-label="Main">
+        <a class="home" href="/">{site.name}</a>
+        <a href="/api/" aria-current={section === 'api' ? 'page' : undefined}>API</a>
+        <a href="/blog/" aria-current={section === 'blog' ? 'page' : undefined}>Blog</a>
+        <a href={`mailto:${site.email}`}>Email us</a>
+      </nav>
+      <main>
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
