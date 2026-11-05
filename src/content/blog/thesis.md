@@ -4,6 +4,8 @@ description: "We're rebuilding the inference stack for throughput per dollar, st
 date: 2026-11-04
 ---
 
+We used AWS Inferentia chips to achieve 5.8 million tokens / dollar of Qwen3.8-27B showing you can achieve 92.52% cost reduction compared against OpenRouter live pricing when using off the shelf but unconventional spot compute
+
 By Mo and Shrey
 
 ## Motivation
