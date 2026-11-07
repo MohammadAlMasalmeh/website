@@ -139,6 +139,21 @@ import { site } from '../config';
       line-height: 1.5;
     }
 
+    .backed {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      color: var(--ink);
+      font-size: 16px;
+    }
+
+    .backed svg {
+      width: 18px;
+      height: 18px;
+      flex: none;
+    }
+
     .top-nav {
       display: flex;
       flex-wrap: wrap;
@@ -265,6 +280,9 @@ import { site } from '../config';
   </div>
   <div class="intro">
     <p class="pitch">Save 3 to 4x using Slug over realtime inference providers for jobs that can wait</p>
+    <p class="backed">Backed by
+      <svg viewBox="0 0 48 48" role="img" aria-label="Y"><path d="M48 48H0V0H48Z" fill="#F60" /><path d="M13.9012 11.7843H17.6595L22.4961 21.5325C23.203 22.9836 23.7984 24.3976 23.7984 24.3976C23.7984 24.3976 24.4313 23.021 25.175 21.5325L30.0868 11.7843H33.5843L25.2865 27.3746V37.309H22.1244V27.1884L13.9012 11.7843Z" fill="#fff" /></svg>
+      Combinator</p>
   </div>
   <script is:inline>
     const slug = document.querySelector('.slug');
