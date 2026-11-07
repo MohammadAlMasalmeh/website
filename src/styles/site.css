@@ -14,19 +14,19 @@ body {
 }
 
 ::selection {
-  background: var(--slime);
-  color: var(--on-slime);
+  background: var(--lavender);
+  color: var(--bg);
 }
 
 a {
   color: var(--ink);
-  text-decoration-color: var(--slug);
+  text-decoration-color: var(--violet);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 
 :focus-visible {
-  outline: 2px solid var(--slug);
+  outline: 2px solid var(--violet);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -64,7 +64,7 @@ a {
 .mark {
   width: 30px;
   height: auto;
-  color: var(--ink);
+  color: var(--violet);
 }
 
 .page {
@@ -173,7 +173,7 @@ th {
 }
 
 .tag {
-  color: var(--slug);
+  color: var(--lavender);
 }
 
 /* API key form */
@@ -241,7 +241,7 @@ th {
 
 .post-list a:hover {
   text-decoration: underline;
-  text-decoration-color: var(--slug);
+  text-decoration-color: var(--violet);
 }
 
 .post-list p {

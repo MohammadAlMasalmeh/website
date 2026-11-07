@@ -7,10 +7,9 @@
   --ink: #e7ebdb;
   --ink-2: #969d88;
   --rule: #23271d;
-  /* Accent for text and lines. */
-  --slug: #b9e65c;
-  /* Bright slime for selections, tags and buttons. Text on it uses --on-slime. */
-  --slime: #b9e65c;
-  --slime-soft: rgb(185 230 92 / 0.15);
-  --on-slime: #0b0d09;
+  /* The logo's violet: the accent for lines like link underlines and focus outlines, and where the cursor passes
+     over the home page slug. */
+  --violet: #8b5cf6;
+  /* A lighter violet for small accent text and selected text, where the logo violet is too dark to read well. */
+  --lavender: #c4b5fd;
 }
