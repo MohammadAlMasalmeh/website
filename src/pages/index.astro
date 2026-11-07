@@ -35,8 +35,8 @@ import { site } from '../config';
     }
 
     ::selection {
-      background: var(--slime);
-      color: var(--on-slime);
+      background: var(--lavender);
+      color: var(--bg);
     }
 
     .track {
@@ -69,6 +69,34 @@ import { site } from '../config';
       font: inherit;
       line-height: 1.1;
       animation: swap 1.8s steps(1) infinite;
+    }
+
+    /* A character the cursor touched turns violet at once. When the script lets it go, it deepens to a dark violet,
+       passes through a dim gray and returns to white, so the trail never blends through a pale lavender. */
+    .frame span.touched {
+      color: var(--violet);
+    }
+
+    .frame span.was-touched:not(.touched) {
+      animation: cool-down 1s ease-in-out both;
+    }
+
+    @keyframes cool-down {
+      0% {
+        color: var(--violet);
+      }
+
+      55% {
+        color: #402a80;
+      }
+
+      75% {
+        color: color-mix(in srgb, var(--ink) 30%, var(--bg));
+      }
+
+      100% {
+        color: var(--ink);
+      }
     }
 
     .frame:nth-child(2) {
@@ -128,7 +156,7 @@ import { site } from '../config';
 
     h1 svg {
       width: 30px;
-      color: var(--ink);
+      color: var(--violet);
     }
 
     .pitch {
@@ -171,7 +199,7 @@ import { site } from '../config';
     }
 
     a:focus-visible {
-      outline: 2px solid var(--slug);
+      outline: 2px solid var(--violet);
       outline-offset: 3px;
       border-radius: 4px;
     }
@@ -208,6 +236,10 @@ import { site } from '../config';
 
       .frame+.frame {
         display: none;
+      }
+
+      .frame span.was-touched:not(.touched) {
+        animation: none;
       }
     }
   </style>
@@ -285,10 +317,101 @@ import { site } from '../config';
       Combinator</p>
   </div>
   <script is:inline>
+    // Splits each frame into one span per character, so each character the cursor touches can turn violet.
+    // Each span records its row and column, which are the same across the four frames.
+    for (const frame of document.querySelectorAll('.frame')) {
+      const rows = frame.textContent.split('\n');
+      frame.textContent = '';
+      rows.forEach((row, r) => {
+        for (const [c, ch] of [...row].entries()) {
+          if (ch === ' ') {
+            frame.append(' ');
+            continue;
+          }
+          const span = document.createElement('span');
+          span.textContent = ch;
+          span.dataset.at = `${r},${c}`;
+          frame.append(span);
+        }
+        if (r < rows.length - 1) frame.append('\n');
+      });
+    }
+
     const slug = document.querySelector('.slug');
     const copy = slug.cloneNode(true);
     copy.setAttribute('aria-hidden', 'true');
     slug.after(copy);
+
+    // Each frame, the cursor's position is turned into a row and column on each slug's character grid, so a still
+    // cursor still paints as the slug crawls under it. Every character between the last position and this one is
+    // touched too, so fast moves leave no gaps. A touched character, and the ones beside, above and below it, stay
+    // violet for a moment and then cool down (see .was-touched in the styles).
+    const HOLD_MS = 350;
+    const REACH = [[0, 0], [0, -1], [0, 1], [-1, 0], [1, 0]];
+    const MAX_STEP = 40; // A bigger jump is the slug wrapping around the edge, not the cursor moving.
+    const slugs = [...document.querySelectorAll('.slug')].map((el) => {
+      const spansAt = new Map();
+      for (const span of el.querySelectorAll('[data-at]')) {
+        if (!spansAt.has(span.dataset.at)) spansAt.set(span.dataset.at, []);
+        spansAt.get(span.dataset.at).push(span);
+      }
+      const rows = [...el.querySelectorAll('.frame')].map((frame) => frame.textContent.split('\n'));
+      return {
+        el,
+        spansAt,
+        rows: Math.max(...rows.map((r) => r.length)),
+        cols: Math.max(...rows.flat().map((line) => line.length)),
+        lit: new Map(),
+        last: null,
+      };
+    });
+
+    let pointer = null;
+    addEventListener('pointermove', (event) => {
+      pointer = { x: event.clientX, y: event.clientY };
+    });
+    document.documentElement.addEventListener('pointerleave', () => {
+      pointer = null;
+    });
+
+    function touch(slug, r, c, now) {
+      for (const [dr, dc] of REACH) {
+        const key = `${r + dr},${c + dc}`;
+        const spans = slug.spansAt.get(key);
+        if (!spans) continue;
+        if (!slug.lit.has(key)) spans.forEach((span) => span.classList.add('touched', 'was-touched'));
+        slug.lit.set(key, now);
+      }
+    }
+
+    function tick(now) {
+      for (const slug of slugs) {
+        if (pointer) {
+          const box = slug.el.getBoundingClientRect();
+          const cur = [
+            ((pointer.y - box.top) / box.height) * slug.rows,
+            ((pointer.x - box.left) / box.width) * slug.cols,
+          ];
+          const prev = slug.last ?? cur;
+          let steps = Math.ceil(Math.max(Math.abs(cur[0] - prev[0]), Math.abs(cur[1] - prev[1])));
+          if (steps > MAX_STEP) steps = 0;
+          for (let i = steps ? 1 : 0; i <= steps; i++) {
+            const t = steps ? i / steps : 1;
+            touch(slug, Math.floor(prev[0] + (cur[0] - prev[0]) * t), Math.floor(prev[1] + (cur[1] - prev[1]) * t), now);
+          }
+          slug.last = cur;
+        } else {
+          slug.last = null;
+        }
+        for (const [key, at] of slug.lit) {
+          if (now - at < HOLD_MS) continue;
+          slug.spansAt.get(key).forEach((span) => span.classList.remove('touched'));
+          slug.lit.delete(key);
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
   </script>
 </body>
 
