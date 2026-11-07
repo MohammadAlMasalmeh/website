@@ -16,7 +16,7 @@ export default function KeyForm({ email }: { email: string }) {
       'What I am running:',
       data.get('use'),
     ].join('\n');
-    const subject = 'Slug AI API key request';
+    const subject = 'Slug API key request';
     window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setOpened(true);
   }
