@@ -42,11 +42,11 @@ export default function KeyForm({ email }: { email: string }) {
       <button className="button" type="submit">
         Request a key
       </button>
-      <p className="muted" role="status" style={{ margin: 0 }}>
-        {opened
-          ? `Your email app should have opened. If it didn't, write to ${email}.`
-          : `This opens an email to ${email} with what you typed.`}
-      </p>
+      {opened && (
+        <p className="muted" role="status" style={{ margin: 0 }}>
+          {`Your email app should have opened. If it didn't, write to ${email}.`}
+        </p>
+      )}
     </form>
   );
 }
