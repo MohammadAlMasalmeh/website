@@ -53,14 +53,14 @@ import { site } from '../config';
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       /* Narrower than the screen, so the wrapped copy never runs into the slug. */
       font-size: min(9.5px, 1.55vw);
-      animation: crawl 43s linear infinite;
+      will-change: transform;
     }
 
-    /* The copy added below sits one screen behind, so the slug wraps around the edge. */
+    /* The copy added below is kept one track width behind by the script, so the slug wraps around the edge. */
     .slug+.slug {
       position: absolute;
       top: 0;
-      left: -100vw;
+      left: 0;
     }
 
     .frame {
@@ -109,16 +109,6 @@ import { site } from '../config';
 
     .frame:nth-child(4) {
       animation-delay: -0.45s;
-    }
-
-    @keyframes crawl {
-      from {
-        transform: translateX(0);
-      }
-
-      to {
-        transform: translateX(100vw);
-      }
     }
 
     @keyframes swap {
@@ -205,10 +195,6 @@ import { site } from '../config';
     }
 
     @media (max-width: 600px) {
-      .slug {
-        animation-duration: 30s;
-      }
-
       .top {
         padding: 16px;
       }
@@ -223,7 +209,6 @@ import { site } from '../config';
         /* Centers the body rather than the art, which includes the slime trail behind it. */
         margin-left: 50%;
         transform: translateX(-49%);
-        animation: none;
       }
 
       .slug+.slug {
@@ -374,6 +359,30 @@ _ -,,-- ~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~
     copy.setAttribute('aria-hidden', 'true');
     slug.after(copy);
 
+    // The slug crawls one track width per lap, and the copy stays exactly one track width behind it, so the part
+    // leaving on the right comes back on the left. Both are placed from the track's width on every frame, so
+    // resizing, crossing the phone breakpoint or a scrollbar appearing never pulls them apart or makes them jump.
+    const track = document.querySelector('.track');
+    const still = matchMedia('(prefers-reduced-motion: reduce)');
+    const narrow = matchMedia('(max-width: 600px)');
+    let lap = 0;
+    let lastFrame = null;
+    function crawl(now) {
+      if (still.matches) {
+        slug.style.transform = copy.style.transform = '';
+        lastFrame = null;
+        return;
+      }
+      // A long gap means the tab was hidden, so the slug picks up where it was instead of leaping ahead.
+      const elapsed = lastFrame === null ? 0 : Math.min(now - lastFrame, 100);
+      lastFrame = now;
+      lap = (lap + elapsed / (narrow.matches ? 30000 : 43000)) % 1;
+      const width = track.clientWidth;
+      slug.style.transform = `translateX(${lap * width}px)`;
+      copy.style.transform = `translateX(${(lap - 1) * width}px)`;
+    }
+    crawl(performance.now());
+
     // Each frame, the cursor's position is turned into a row and column on each slug's character grid, so a still
     // cursor still paints as the slug crawls under it. Every character between the last position and this one is
     // touched too, so fast moves leave no gaps. A touched character, and the ones beside, above and below it, stay
@@ -417,6 +426,7 @@ _ -,,-- ~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~
     }
 
     function tick(now) {
+      crawl(now);
       for (const slug of slugs) {
         if (pointer) {
           const box = slug.el.getBoundingClientRect();
