@@ -25,7 +25,7 @@ At a certain point, it becomes infinitely more valuable to use compute to recurs
 
 While the compute crunch in datacenters will get worse, we still see many chips not in datacenters around the world that are being vastly underutilized. For example the gaming GPUs on your PC sit idle, the older AWS Trainium chips have capacity, and (in the near future) the robots cleaning around your house have powerful AI chips that are already powered on and paid for but aren’t utilized! Recently [Sam Altman talked](https://x.com/RT_on_X/status/2116458055999361152?a=NqW2B9asPa2xzyoMgYU&s=20) about how people owning local RAM is terrible for global utilization and we agree. Somehow, this globally underutilized and underpriced silicon needs to be utilized.
 
-**Slug AI is building infrastructure that can run on this globally scattered and unconventional compute for a world of throughput.**
+**Slug is building infrastructure that can run on this globally scattered and unconventional compute for a world of throughput.**
 
 Inference has always been built with low latency in mind and forced engineers to use frontier GPUs at low utilization. We’re throwing away everything that is known about inference and rebuilding the entire stack to be optimized for throughput per $.
 
