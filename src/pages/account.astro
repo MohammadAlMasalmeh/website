@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Account from '../components/Account';
+---
+
+<Layout title="Slug account" description="Sign in to create and manage your Slug API keys.">
+  <h1>Account</h1>
+  <!-- The session lives in the browser, so there is nothing to render at build time. -->
+  <Account client:only="react" />
+</Layout>

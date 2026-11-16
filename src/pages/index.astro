@@ -193,6 +193,26 @@ import { site } from '../config';
       flex: none;
     }
 
+    .site-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px 24px;
+      padding: 20px 32px;
+      border-top: 1px solid var(--rule);
+      color: var(--ink-2);
+      font-size: 15px;
+    }
+
+    .site-footer a {
+      color: var(--ink-2);
+      text-decoration: none;
+    }
+
+    .site-footer a:hover {
+      color: var(--ink);
+    }
+
     .top-nav {
       display: flex;
       flex-wrap: wrap;
@@ -222,6 +242,10 @@ import { site } from '../config';
 
       .intro {
         padding: 16px 16px 24px;
+      }
+
+      .site-footer {
+        padding: 16px;
       }
     }
 
@@ -255,10 +279,9 @@ import { site } from '../config';
   <header class="top">
     <h1><SlugMark />Slug</h1>
     <nav class="top-nav" aria-label="Main">
-      <a href="/api/">API</a>
       <a href="/docs">Docs</a>
       <a href="/blog/">Blog</a>
-      <a href={`mailto:${site.email}`}>Email us</a>
+      <a href="/account/">Account</a>
     </nav>
   </header>
   <div class="track">
@@ -355,6 +378,10 @@ _ -,,-- ~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~
       <svg viewBox="0 0 48 48" role="img" aria-label="Y"><path d="M48 48H0V0H48Z" fill="#F60" /><path d="M13.9012 11.7843H17.6595L22.4961 21.5325C23.203 22.9836 23.7984 24.3976 23.7984 24.3976C23.7984 24.3976 24.4313 23.021 25.175 21.5325L30.0868 11.7843H33.5843L25.2865 27.3746V37.309H22.1244V27.1884L13.9012 11.7843Z" fill="#fff" /></svg>
       Combinator</p>
   </div>
+  <footer class="site-footer">
+    <span>&copy; {new Date().getFullYear()} {site.name}</span>
+    <a href={`mailto:${site.email}`}>{site.email}</a>
+  </footer>
   <script is:inline>
     // Splits each frame into one span per character, so each character the cursor touches can turn violet.
     // Each span records its row and column, which are the same across the four frames.

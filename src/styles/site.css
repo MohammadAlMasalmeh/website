@@ -4,6 +4,10 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
   margin: 0;
   background: var(--bg);
   color: var(--ink);
@@ -68,9 +72,32 @@ a {
 }
 
 .page {
+  flex: 1;
+  box-sizing: border-box;
+  width: 100%;
   max-width: 700px;
   margin: 0 auto;
   padding: 64px 24px 96px;
+}
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding: 20px 32px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+.site-footer a {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--ink);
 }
 
 h1,
@@ -176,7 +203,7 @@ th {
   color: var(--lavender);
 }
 
-/* API key form */
+/* Forms */
 
 .key-form {
   display: grid;
@@ -221,6 +248,50 @@ th {
 .button:hover {
   background: var(--ink);
   color: var(--bg);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Account page */
+
+.link-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--violet);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.form-note,
+.form-error {
+  margin: 0;
+}
+
+.form-error {
+  color: #f0a8a8;
+}
+
+.new-key {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid var(--violet);
+}
+
+.new-key pre {
+  margin-bottom: 12px;
+}
+
+.table-wrap + .key-form,
+.muted + .key-form {
+  margin-top: 32px;
 }
 
 /* Blog list */
@@ -335,6 +406,10 @@ th {
 
   .page {
     padding: 40px 16px 64px;
+  }
+
+  .site-footer {
+    padding: 16px;
   }
 
   h1 {
