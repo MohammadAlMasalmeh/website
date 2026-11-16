@@ -9,6 +9,7 @@ export default defineConfig({
     rehypePlugins: [rehypeFigures],
   },
   redirects: {
+    '/api': '/account/',
     '/blog/how-many-tokens-per-dollar': '/blog/thesis',
   },
 });
