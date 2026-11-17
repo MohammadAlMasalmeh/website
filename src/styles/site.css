@@ -314,45 +314,213 @@ th {
   color: #f0a8a8;
 }
 
-.key-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.muted + .key-form {
+  margin-top: 32px;
 }
 
-.key-list li {
-  margin: 0;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--rule);
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
-.key-head,
-.key-row {
+.account-email {
+  margin: -4px 0 0;
+  font-size: 14px;
+}
+
+.account-email .link-button {
+  color: var(--ink-2);
+}
+
+/* API keys */
+
+.keys-header {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 16px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 56px;
 }
 
-.key-head {
-  justify-content: space-between;
-  margin-bottom: 6px;
+.keys-header h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.keys-note {
+  margin: 8px 0 28px;
   font-size: 15px;
 }
 
-.key-head strong {
-  font-size: 17px;
-  font-weight: 600;
+/* The solid and quiet buttons share one height so they line up with the key name input. */
+.button-solid,
+.button-quiet {
+  height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
-.key-row code {
-  margin-right: auto;
-  overflow-wrap: anywhere;
+.button-solid {
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 500;
 }
 
-.key-list + .key-form,
-.muted + .key-form {
-  margin-top: 32px;
+.button-solid:hover {
+  background: #ffffff;
+}
+
+.button-quiet {
+  background: none;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.button-quiet:hover {
+  background: none;
+  color: var(--ink);
+}
+
+.key-panel {
+  margin: 0 0 28px;
+  padding: 16px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.key-panel label,
+.key-panel-title {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.key-panel-title {
+  margin-bottom: 4px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.key-panel-note {
+  margin: 8px 0 0;
+  font-size: 13px;
+}
+
+.key-panel-title + .key-panel-note {
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+
+.key-panel-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.key-panel input,
+.key-secret {
+  flex: 1 1 240px;
+  min-width: 0;
+  height: 36px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  border: 1px solid #596050;
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+}
+
+.key-panel input:focus {
+  border-color: var(--violet);
+  outline: 2px solid rgb(139 92 246 / 35%);
+  outline-offset: 0;
+}
+
+.key-secret {
+  display: flex;
+  align-items: center;
+  flex-basis: 320px;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-family: var(--font-code);
+  font-size: 13px;
+}
+
+.keys-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 40px 24px;
+  border: 1px dashed #2f3427;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.keys-empty p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.key-table {
+  width: 100%;
+  font-size: 15px;
+}
+
+.key-table th,
+.key-table td {
+  vertical-align: middle;
+  padding: 14px 16px 14px 0;
+}
+
+.key-table th {
+  padding-top: 0;
+  padding-bottom: 10px;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.key-table td {
+  color: var(--ink-2);
+}
+
+.key-table .key-name {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.key-table code {
+  padding: 0;
+  background: none;
+  font-size: 13px;
+}
+
+.key-table .key-actions {
+  padding-right: 0;
+  text-align: right;
+}
+
+.key-table .button-quiet {
+  height: auto;
+  padding: 0;
+}
+
+@media (max-width: 640px) {
+  .key-table .key-date {
+    display: none;
+  }
 }
 
 /* Blog list */

@@ -28,8 +28,8 @@ export default function Account() {
 
   return (
     <>
-      <p className="muted">
-        Signed in as {session.user.email}.{' '}
+      <p className="muted account-email">
+        {session.user.email} ·{' '}
         <button className="link-button" type="button" onClick={() => supabase!.auth.signOut()}>
           Sign out
         </button>
