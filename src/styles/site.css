@@ -314,14 +314,12 @@ th {
   color: #f0a8a8;
 }
 
-.new-key {
-  margin-bottom: 24px;
-  padding: 16px;
-  border: 1px solid var(--violet);
+.key-actions {
+  white-space: nowrap;
 }
 
-.new-key pre {
-  margin-bottom: 12px;
+.key-actions .link-button + .link-button {
+  margin-left: 16px;
 }
 
 .table-wrap + .key-form,

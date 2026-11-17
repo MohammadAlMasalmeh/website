@@ -4,6 +4,8 @@ import { supabase } from '../lib/supabase';
 interface ApiKey {
   id: string;
   name: string;
+  // Null for keys made before the site started storing key text.
+  key: string | null;
   key_prefix: string;
   created_at: string;
   last_used_at: string | null;
@@ -16,16 +18,15 @@ function formatDate(value: string | null) {
 
 export default function ApiKeys() {
   const [keys, setKeys] = useState<ApiKey[] | null>(null);
-  // The text of the key just created. The database only keeps its hash, so this is the one chance to copy it.
-  const [newKey, setNewKey] = useState('');
-  const [copied, setCopied] = useState(false);
+  // The id of the key whose Copy button was last pressed.
+  const [copiedId, setCopiedId] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
 
   async function load() {
     const { data, error } = await supabase!
       .from('api_keys')
-      .select('id, name, key_prefix, created_at, last_used_at')
+      .select('id, name, key, key_prefix, created_at, last_used_at')
       .is('revoked_at', null)
       .order('created_at', { ascending: false });
     if (error) setError(error.message);
@@ -42,14 +43,12 @@ export default function ApiKeys() {
     const name = String(new FormData(form).get('name')).trim();
     setBusy(true);
     setError('');
-    const { data, error } = await supabase!.rpc('create_api_key', { key_name: name });
+    const { error } = await supabase!.rpc('create_api_key', { key_name: name });
     setBusy(false);
     if (error) {
       setError(error.message);
       return;
     }
-    setNewKey(data);
-    setCopied(false);
     form.reset();
     load();
   }
@@ -62,26 +61,15 @@ export default function ApiKeys() {
     load();
   }
 
-  async function handleCopy() {
-    await navigator.clipboard.writeText(newKey);
-    setCopied(true);
+  async function handleCopy(key: ApiKey) {
+    if (!key.key) return;
+    await navigator.clipboard.writeText(key.key);
+    setCopiedId(key.id);
   }
 
   return (
     <>
       <h2 id="keys">API keys</h2>
-
-      {newKey && (
-        <div className="new-key" role="status">
-          <p>Copy this key now. We only store a hash of it, so you won't be able to see it again.</p>
-          <pre>
-            <code>{newKey}</code>
-          </pre>
-          <button className="button" type="button" onClick={handleCopy}>
-            {copied ? 'Copied' : 'Copy'}
-          </button>
-        </div>
-      )}
 
       {keys === null ? (
         !error && <p className="muted">Loading...</p>
@@ -104,11 +92,16 @@ export default function ApiKeys() {
                 <tr key={key.id}>
                   <td>{key.name}</td>
                   <td>
-                    <code>{key.key_prefix}...</code>
+                    <code>{key.key ?? `${key.key_prefix}...`}</code>
                   </td>
                   <td>{formatDate(key.created_at)}</td>
                   <td>{formatDate(key.last_used_at)}</td>
-                  <td>
+                  <td className="key-actions">
+                    {key.key && (
+                      <button className="link-button" type="button" onClick={() => handleCopy(key)}>
+                        {copiedId === key.id ? 'Copied' : 'Copy'}
+                      </button>
+                    )}
                     <button className="link-button" type="button" onClick={() => handleRevoke(key)}>
                       Revoke
                     </button>
