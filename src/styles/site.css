@@ -270,6 +270,35 @@ th {
   cursor: pointer;
 }
 
+.provider-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  justify-self: stretch;
+}
+
+.provider-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0;
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-top: 1px solid var(--rule);
+}
+
 .form-note,
 .form-error {
   margin: 0;
