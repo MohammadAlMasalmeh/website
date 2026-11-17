@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { limits, site } from '../config';
+---
+
+<Layout title="Privacy policy | Slug" description="What Slug collects, why, and who it is shared with.">
+  <h1>Privacy policy</h1>
+  <p class="post-meta">Last updated November 16, 2026</p>
+
+  <p>
+    Slug runs batch inference: you send prompts, we run them and return the results. This page says what we collect
+    when you use slugllm.com and the Slug API, what we do with it, and who else handles it.
+  </p>
+
+  <h2>What we collect</h2>
+  <ul>
+    <li>
+      <strong>Account details.</strong> Your email address and, if you set one, a password, which is stored hashed. If
+      you sign in with Google or GitHub, we receive your email address, name and profile picture from them. We don't
+      get access to anything else in those accounts.
+    </li>
+    <li>
+      <strong>API keys.</strong> The name you give each key, when it was made and last used, and a hash of the key. We
+      don't keep the key itself.
+    </li>
+    <li>
+      <strong>What you send through the API.</strong> The prompts in your batches and the outputs we generate for
+      them.
+    </li>
+    <li>
+      <strong>Usage and logs.</strong> How many requests and tokens you use, plus the technical logs any web service
+      keeps, such as IP address, browser and time of request.
+    </li>
+  </ul>
+  <p>The site sets only the storage it needs to keep you signed in. We don't run advertising or tracking cookies.</p>
+
+  <h2>What we use it for</h2>
+  <ul>
+    <li>Running your batches and returning the results.</li>
+    <li>Signing you in, and sending account email such as sign-up confirmation and password resets.</li>
+    <li>Measuring usage for limits and billing.</li>
+    <li>Keeping the service working and secure, and investigating abuse.</li>
+  </ul>
+  <p>We don't sell your data, and we don't use your prompts or outputs to train models.</p>
+
+  <h2>Who else handles it</h2>
+  <p>We use other companies to run Slug, and they process data for us:</p>
+  <ul>
+    <li>Supabase, for accounts and our database.</li>
+    <li>Vercel, for hosting this website.</li>
+    <li>Amazon Web Services and Google Cloud, for running inference and sending account email.</li>
+    <li>Google and GitHub, if you choose to sign in with them.</li>
+  </ul>
+  <p>We also share data when the law requires it, or if Slug is acquired or merged, as part of that deal.</p>
+
+  <h2>How long we keep it</h2>
+  <p>
+    Batch outputs can be downloaded for {limits.outputLinkDays} days after a batch finishes. We keep account details
+    and usage records for as long as your account is open, and logs for a limited time. When you ask us to delete your
+    account, we delete your account details and API keys, and keep only what we need for legal or billing reasons.
+  </p>
+
+  <h2>Your choices</h2>
+  <p>
+    You can ask for a copy of your data, ask us to correct it, or ask us to delete your account by emailing
+    <a href={`mailto:${site.email}`}>{site.email}</a>. You can revoke API keys yourself from your
+    <a href="/account/">account page</a>.
+  </p>
+
+  <h2>Children</h2>
+  <p>Slug is not meant for anyone under 13, and we don't knowingly collect their data.</p>
+
+  <h2>Changes</h2>
+  <p>If we change this policy we will update this page and the date at the top.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about privacy: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+</Layout>

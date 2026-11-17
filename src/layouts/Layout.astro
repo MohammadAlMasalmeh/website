@@ -36,7 +36,11 @@ const section = Astro.url.pathname.split('/')[1];
     </main>
     <footer class="site-footer">
       <span>&copy; {new Date().getFullYear()} {site.name}</span>
-      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <span class="footer-links">
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </span>
     </footer>
   </body>
 </html>

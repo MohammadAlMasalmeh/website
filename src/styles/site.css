@@ -91,6 +91,12 @@ a {
   font-size: 15px;
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
 .site-footer a {
   color: var(--ink-2);
   text-decoration: none;

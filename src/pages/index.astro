@@ -204,6 +204,12 @@ import { site } from '../config';
       font-size: 15px;
     }
 
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+    }
+
     .site-footer a {
       color: var(--ink-2);
       text-decoration: none;
@@ -380,7 +386,11 @@ _ -,,-- ~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~~~-___-~
   </div>
   <footer class="site-footer">
     <span>&copy; {new Date().getFullYear()} {site.name}</span>
-    <a href={`mailto:${site.email}`}>{site.email}</a>
+    <span class="footer-links">
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </span>
   </footer>
   <script is:inline>
     // Splits each frame into one span per character, so each character the cursor touches can turn violet.

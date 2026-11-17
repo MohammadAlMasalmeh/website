@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../config';
+---
+
+<Layout title="Terms of service | Slug" description="The terms for using slugllm.com and the Slug API.">
+  <h1>Terms of service</h1>
+  <p class="post-meta">Last updated November 16, 2026</p>
+
+  <p>
+    These terms cover your use of slugllm.com and the Slug API, together called the service. By creating an account
+    or using the service you agree to them. If you use Slug for a company, you agree on its behalf.
+  </p>
+
+  <h2>Your account</h2>
+  <p>
+    You need an account to use the API. Keep your password and API keys secret: you are responsible for what is done
+    with them. Tell us straight away if you think a key has leaked, and revoke it from your
+    <a href="/account/">account page</a>.
+  </p>
+
+  <h2>The service</h2>
+  <p>
+    Slug runs batches of model requests that can wait. Results are not instant, and the service is in early access:
+    features, models, limits and prices may change, and we may pause or end the service. We will try to give notice
+    of changes that affect you.
+  </p>
+
+  <h2>Acceptable use</h2>
+  <p>You agree not to use the service to:</p>
+  <ul>
+    <li>break the law or help anyone else break it;</li>
+    <li>generate content that exploits or harms children, or that harasses or threatens people;</li>
+    <li>send spam, malware or anything meant to deceive or defraud;</li>
+    <li>attack, overload or probe the service, or get around its limits;</li>
+    <li>resell access to the service without our written agreement.</li>
+  </ul>
+  <p>We may suspend or close an account that breaks these rules.</p>
+
+  <h2>Your content</h2>
+  <p>
+    You keep the rights to the prompts you send and, as far as the law allows, to the outputs you receive. You give
+    us permission to process them only as needed to run the service. You are responsible for having the right to
+    send us your prompts, and for how you use the outputs. Model outputs can be wrong, so check them before relying
+    on them.
+  </p>
+
+  <h2>Fees</h2>
+  <p>
+    Some usage is free. When paid usage is available, prices will be shown before you buy, and credits you buy are
+    not refundable except where the law requires it.
+  </p>
+
+  <h2>No warranty</h2>
+  <p>
+    The service is provided as is and as available. To the extent the law allows, we make no warranties about it,
+    including that it will be uninterrupted, error free, or fit for a particular purpose.
+  </p>
+
+  <h2>Limit of liability</h2>
+  <p>
+    To the extent the law allows, Slug is not liable for indirect, incidental or consequential damages, or for lost
+    profits or data. Our total liability for any claim about the service is limited to the amount you paid us in the
+    12 months before the claim, or 100 US dollars if that is more.
+  </p>
+
+  <h2>Ending these terms</h2>
+  <p>
+    You can stop using the service and ask us to delete your account at any time. We can suspend or end your access
+    if you break these terms or if we stop offering the service.
+  </p>
+
+  <h2>Changes</h2>
+  <p>
+    We may update these terms. We will update this page and the date at the top, and continuing to use the service
+    after a change means you accept it.
+  </p>
+
+  <h2>Contact</h2>
+  <p>Questions about these terms: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+</Layout>
