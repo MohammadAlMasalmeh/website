@@ -12,7 +12,7 @@ interface ApiKey {
 }
 
 function formatDate(value: string | null) {
-  if (!value) return 'Never';
+  if (!value) return 'never';
   return new Date(value).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
@@ -76,41 +76,29 @@ export default function ApiKeys() {
       ) : keys.length === 0 ? (
         <p className="muted">No keys yet.</p>
       ) : (
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Key</th>
-                <th>Created</th>
-                <th>Last used</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {keys.map((key) => (
-                <tr key={key.id}>
-                  <td>{key.name}</td>
-                  <td>
-                    <code>{key.key ?? `${key.key_prefix}...`}</code>
-                  </td>
-                  <td>{formatDate(key.created_at)}</td>
-                  <td>{formatDate(key.last_used_at)}</td>
-                  <td className="key-actions">
-                    {key.key && (
-                      <button className="link-button" type="button" onClick={() => handleCopy(key)}>
-                        {copiedId === key.id ? 'Copied' : 'Copy'}
-                      </button>
-                    )}
-                    <button className="link-button" type="button" onClick={() => handleRevoke(key)}>
-                      Revoke
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ul className="key-list">
+          {keys.map((key) => (
+            <li key={key.id}>
+              <div className="key-head">
+                <strong>{key.name}</strong>
+                <span className="muted">
+                  Created {formatDate(key.created_at)} · Last used {formatDate(key.last_used_at)}
+                </span>
+              </div>
+              <div className="key-row">
+                <code>{key.key ?? `${key.key_prefix}...`}</code>
+                {key.key && (
+                  <button className="link-button" type="button" onClick={() => handleCopy(key)}>
+                    {copiedId === key.id ? 'Copied' : 'Copy'}
+                  </button>
+                )}
+                <button className="link-button" type="button" onClick={() => handleRevoke(key)}>
+                  Revoke
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
       )}
 
       <form className="key-form" onSubmit={handleCreate}>

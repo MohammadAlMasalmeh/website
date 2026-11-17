@@ -314,15 +314,43 @@ th {
   color: #f0a8a8;
 }
 
-.key-actions {
-  white-space: nowrap;
+.key-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.key-actions .link-button + .link-button {
-  margin-left: 16px;
+.key-list li {
+  margin: 0;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
 }
 
-.table-wrap + .key-form,
+.key-head,
+.key-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+}
+
+.key-head {
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.key-head strong {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.key-row code {
+  margin-right: auto;
+  overflow-wrap: anywhere;
+}
+
+.key-list + .key-form,
 .muted + .key-form {
   margin-top: 32px;
 }
